@@ -1,12 +1,23 @@
 function drawGraphic(container_width) {
   var $graphic = $("#graphic")
   $graphic.empty()
-  var margin = {top: 20, right: 20, bottom: 50, left: 200},
+  var mobileThreshold = 600;
+  var leftMargin, bottomMargin, aspectHeight;
+  if($graphic.width() < mobileThreshold){
+    leftMargin = 70;
+    bottomMargin = 250;
+    aspectHeight = .7;
+
+  }
+  else{
+    leftMargin = 200;
+    bottomMargin = 50;
+    aspectHeight = 1;
+  }
+  var margin = {top: 20, right: 20, bottom: bottomMargin, left: leftMargin},
       aspectWidth = 1,
-      aspectHeight = 1,
       width = $graphic.width() - margin.left - margin.right,
       height = Math.ceil((width * aspectWidth) / aspectHeight) - margin.top - margin.bottom;
-
   var y = d3.scale.ordinal()
       .rangeRoundBands([0, height], .2);
 
@@ -92,26 +103,60 @@ function drawGraphic(container_width) {
         .style("fill", function(d) { return color(d.name); });
       // console.log(country.data())
 
-    var legend = svg.selectAll(".legend")
-        .data(color.domain().slice())
-      .enter().append("g")
-        .attr("class", "legend")
-        .attr("transform", function(d, i) { return "translate(-"+ (width + margin.left - 120) + ',' + (10 + (i * 40)) + ")"; })
-        .on("click", function(d){ sortBars(d) });
+    if ($(graphic).width() > mobileThreshold){
+      d3.select("#clickTap").text("Click on")
+      var legend = svg.selectAll(".legend")
+          .data(color.domain().slice())
+        .enter().append("g")
+          .attr("class", "legend")
+          .attr("transform", function(d, i) { return "translate(-"+ (width + margin.left - 120) + ',' + (10 + (i * 40)) + ")"; })
+          .on("click", function(d){ sortBars(d) });
 
-    legend.append("rect")
-        .attr("x", width - 100)
-        .attr("width", 100)
-        .attr("height", 30)
-        .style("fill", color);
+      legend.append("rect")
+          .attr("x", width - 100)
+          .attr("width", 100)
+          .attr("height", 30)
+          .style("fill", color);
 
-    legend.append("text")
-        .attr("class","legend-text")
-        .attr("x", width - 15)
-        .attr("y", 14)
-        .attr("dy", ".35em")
-        .style("text-anchor", "end")
-        .text(function(d) { return d; });
+      legend.append("text")
+          .attr("class","legend-text")
+          .attr("x", width - 15)
+          .attr("y", 14)
+          .attr("dy", ".35em")
+          .style("text-anchor", "end")
+          .text(function(d) { return d; });
+    }
+
+    else{
+      d3.select("#clickTap").text("Tap")
+      var legend = svg.selectAll(".legend")
+          .data(color.domain().slice())
+        .enter().append("g")
+          .attr("class", "legend")
+          .attr("transform", function(d, i) {
+            // console.log(i, (Math.floor(i/3)+parseFloat(0))*i)
+            var base;
+            if (i > 2){ base = 260}
+            else{ base = -10}
+            return "translate(-"+ (base-50+width - i*105) + ','
+             + (parseFloat(Math.floor(i/3)*40)+parseFloat(height+60)) + ")"; })
+          .on("click", function(d){ sortBars(d) });
+
+      legend.append("rect")
+          .attr("x", width - 100)
+          .attr("width", 100)
+          .attr("height", 30)
+          .style("fill", color);
+
+      legend.append("text")
+          .attr("class","legend-text")
+          .attr("x", width - 15)
+          .attr("y", 14)
+          .attr("dy", ".35em")
+          .style("text-anchor", "end")
+          .text(function(d) { return d; });
+
+    }
 
 
     var falseAxis = svg.append("line")
