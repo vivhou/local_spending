@@ -10,7 +10,7 @@ function drawGraphic(container_width) {
 
   }
   else{
-    leftMargin = 200;
+    leftMargin = 220;
     bottomMargin = 50;
     aspectHeight = 1;
   }
@@ -26,7 +26,7 @@ function drawGraphic(container_width) {
 
 
   var color = d3.scale.ordinal()
-      .range(["#b0d5f1", "#82c4e9", "#1696d2", "#00578b", "#000000"]);
+      .range(["#fcb918", "#1696d2", "#555555", "#ec008c"]);
 
   var yAxis = d3.svg.axis()
       .scale(y)
