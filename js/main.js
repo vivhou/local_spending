@@ -19,14 +19,14 @@ function drawGraphic(container_width) {
       width = $graphic.width() - margin.left - margin.right,
       height = Math.ceil((width * aspectWidth) / aspectHeight) - margin.top - margin.bottom;
   var y = d3.scale.ordinal()
-      .rangeRoundBands([0, height], .2);
+      .rangeRoundBands([0, height], 0);
 
   var x = d3.scale.linear()
       .rangeRound([0,width]);
 
 
   var color = d3.scale.ordinal()
-      .range(["#fcb918", "#1696d2", "#555555", "#ec008c"]);
+      .range(["#fcb918", "#1696d2", "#8A181A", "#838689"]);
 
   var yAxis = d3.svg.axis()
       .scale(y)
@@ -192,14 +192,14 @@ function drawGraphic(container_width) {
         .attr("width", function(d) { return x(d.x1) - x(d.x0); })
         .style("fill", function(d) { return color(d.name); })
         .style("opacity",function(d,i){
-          if (i != 0){ return .5}
+          if (i != 0){ return .4}
           else{return 1}
         });
 
       legend.selectAll("rect")
       .style("opacity",function(d){
         if(d == indicator) { return 1}
-        else{ return .5}
+        else{ return .4}
       })
 
       country
