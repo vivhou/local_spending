@@ -190,7 +190,17 @@ function drawGraphic(container_width) {
         .duration(250)
         .attr("x", function(d) { return x(d.x0); })
         .attr("width", function(d) { return x(d.x1) - x(d.x0); })
-        .style("fill", function(d) { return color(d.name); });
+        .style("fill", function(d) { return color(d.name); })
+        .style("opacity",function(d,i){
+          if (i != 0){ return .5}
+          else{return 1}
+        });
+
+      legend.selectAll("rect")
+      .style("opacity",function(d){
+        if(d == indicator) { return 1}
+        else{ return .5}
+      })
 
       country
           .transition()
