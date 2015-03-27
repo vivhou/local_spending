@@ -1,0 +1,39 @@
+body {
+  font: 12pt Lato;
+}
+
+.false-axis{
+  stroke: #000;
+}
+
+.grid-line{
+  stroke: #b3b3b3;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: none;
+  shape-rendering: crispEdges;
+}
+
+.axis-label{
+  font: 12pt Lato;
+  font-weight: 700;
+
+}
+
+.y.axis .tick line{
+  display: none;
+}
+
+.legend-text{
+  fill: white;
+}
+
+#title{
+  font: 20pt Lato;
+}
+
+#subtitle{
+  font-style: italic;
+}
