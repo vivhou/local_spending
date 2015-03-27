@@ -19,7 +19,7 @@ function drawGraphic(container_width) {
       width = $graphic.width() - margin.left - margin.right,
       height = Math.ceil((width * aspectWidth) / aspectHeight) - margin.top - margin.bottom;
   var y = d3.scale.ordinal()
-      .rangeRoundBands([0, height], 0);
+      .rangeRoundBands([0, height], .1);
 
   var x = d3.scale.linear()
       .rangeRound([0,width]);
