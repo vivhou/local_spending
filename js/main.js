@@ -192,14 +192,14 @@ function drawGraphic(container_width) {
         .attr("width", function(d) { return x(d.x1) - x(d.x0); })
         .style("fill", function(d) { return color(d.name); })
         .style("opacity",function(d,i){
-          if (i != 0){ return .4}
+          if (i != 0){ return .35}
           else{return 1}
         });
 
       legend.selectAll("rect")
       .style("opacity",function(d){
         if(d == indicator) { return 1}
-        else{ return .4}
+        else{ return .35}
       })
 
       country
