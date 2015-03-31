@@ -37,3 +37,21 @@ body {
 #subtitle{
   font-style: italic;
 }
+
+.legend{
+  font-size: 14px;
+  padding: 14px;
+  margin: 20px 0  0 6px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: #1696d2;
+  display: block;
+  line-height: 12px;
+  text-transform: uppercase;
+  text-align: center;
+  float: left;
+  margin-right: 1px;
+}
+
+button:focus {outline:0;}
