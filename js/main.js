@@ -1,5 +1,10 @@
 function test(graphicID, dataFile){
   function drawGraphic(container_width) {
+    if (container_width>750){
+      container_width  = 750;
+    } 
+    console.log(container_width)
+    
     var $graphic = $("#" + graphicID)
     if(typeof($graphic[0]) == "undefined"){
       return
@@ -18,8 +23,8 @@ function test(graphicID, dataFile){
     }
     var margin = {top: 30, right: 30, bottom: 50, left: 120},
         aspectWidth = 1,
-        width = container_width - margin.left - margin.right,
-        height = Math.ceil((width * aspectWidth) / aspectHeight) - margin.top - margin.bottom;
+        width = container_width - margin.left - margin.right
+        var height = Math.ceil((width * aspectWidth) / aspectHeight) - margin.top - margin.bottom;
     var y = d3.scale.ordinal()
         .rangeRoundBands([0, height], .1);
 
@@ -79,7 +84,18 @@ function test(graphicID, dataFile){
             .attr("class", "legend")
             .style("background", color)
             .text(function(d){return d})
-            .on("click", function(d){ sortBars(d) });
+            .on("click", function(d){ sortBars(d, false) });
+
+
+            d3.select("#" + graphicID)
+            .insert("button","svg")
+              .attr("class", "legend reverse")
+              .style("background","#000")
+              .text("All Decentralized")
+              .on("click", function(){
+                // console.log(this)
+                sortBars("Strictly Central", true)
+              })
 
       svg.append("g")
           .attr("class", "y axis")
@@ -169,12 +185,13 @@ function test(graphicID, dataFile){
          .attr("y1",y(0))
          .attr("y2",height);
 
-      function sortBars(indicator){
+      function sortBars(indicator, reverse){
         data.forEach(function(d) {
           var x0 = 0;
           var loc = color.domain().indexOf(indicator)
           color.domain().splice(loc,1)
-          color.domain().unshift(indicator)
+          if(!reverse){color.domain().unshift(indicator)}
+          else{color.domain().push(indicator)}
           d.indicators = color.domain().map(function(name) { return {name: name, x0: x0, x1: x0 += +d[name]}; });
           d.total = d.indicators[d.indicators.length - 1].x1;
         });
@@ -182,6 +199,9 @@ function test(graphicID, dataFile){
           delay = function(d, i) { return i * 50; };
 
         data.sort(function(a, b) { return parseFloat(b[indicator]) - parseFloat(a[indicator]); });
+
+        if(reverse){ data.reverse()}
+
         y.domain(data.map(function(d) { return d.country; }));
         x.domain([0, d3.max(data, function(d) { return d.total; })]);
 
@@ -195,15 +215,26 @@ function test(graphicID, dataFile){
           .attr("width", function(d) { return x(d.x1) - x(d.x0); })
           .style("fill", function(d) { return color(d.name); })
           .style("opacity",function(d,i){
-            if (i != 0){ return .2}
-            else{return 1}
+            if(!reverse){
+              if (i != 0){ return .2}
+              else{return 1}
+            }
+            else{
+              if( i == 3){return .2}
+              else{ return 1}
+            }
           });
 
-        d3.selectAll("button")
-        .style("opacity",function(d){
-          if(d == indicator) { return 1}
-          else{ return .35}
-        })
+        if (!reverse){
+          d3.selectAll("button")
+          .style("opacity",function(d){
+            if(d == indicator) { return 1}
+            else{ return .35}
+          })
+        }
+        else{ d3.selectAll("button").style("opacity",.35)
+              d3.select("button.reverse").style("opacity",1)
+            }
 
         country
             .transition()
