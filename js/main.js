@@ -89,7 +89,7 @@ function test(graphicID, dataFile){
             .insert("button","svg")
               .attr("class", "legend reverse")
               .style("background","#000")
-              .text("All Decentralized")
+              .text("All Localized")
               .on("click", function(){
                 sortBars("Strictly Central", true)
               })
