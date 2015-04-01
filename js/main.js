@@ -3,7 +3,6 @@ function test(graphicID, dataFile){
     if (container_width>750){
       container_width  = 750;
     } 
-    console.log(container_width)
     
     var $graphic = $("#" + graphicID)
     if(typeof($graphic[0]) == "undefined"){
@@ -73,7 +72,6 @@ function test(graphicID, dataFile){
         d.total = d.indicators[d.indicators.length - 1].x1;
       });
 
-      // data.sort(function(a, b) { return parseFloat(b.indicator1) - parseFloat(a.indicator1); });
       y.domain(data.map(function(d) { return d.country; }));
       x.domain([0, d3.max(data, function(d) { return d.total; })]); 
 
@@ -93,13 +91,11 @@ function test(graphicID, dataFile){
               .style("background","#000")
               .text("All Decentralized")
               .on("click", function(){
-                // console.log(this)
                 sortBars("Strictly Central", true)
               })
 
       svg.append("g")
           .attr("class", "y axis")
-          // .attr("transform", "translate(" + width + ",0)")
           .call(yAxis);
 
       svg.append("g")
@@ -130,53 +126,6 @@ function test(graphicID, dataFile){
           .style("fill", function(d) { return color(d.name); });
 
         d3.select("#clickTap").text("Click on")
-
-
-        // legend.append("div")
-        //     .attr("x", width - 100)
-        //     .attr("width", 100)
-        //     .attr("height", 30)
-        //     .style("fill", color);
-
-        // legend.append("text")
-        //     .attr("class","legend-text")
-        //     // .attr("x", width - 15)
-        //     // .attr("y", 14)
-        //     // .attr("dy", ".35em")
-        //     // .style("text-anchor", "end")
-        //     .text(function(d) { return d; });
-
-      // else{
-      //   d3.select("#clickTap").text("Tap")
-      //   var legend = svg.selectAll(".legend")
-      //       .data(color.domain().slice())
-      //     .enter().append("g")
-      //       .attr("class", "legend")
-      //       .attr("transform", function(d, i) {
-      //         // console.log(i, (Math.floor(i/3)+parseFloat(0))*i)
-      //         var base;
-      //         if (i > 2){ base = 260}
-      //         else{ base = -10}
-      //         return "translate(-"+ (base-50+width - i*105) + ','
-      //          + (parseFloat(Math.floor(i/3)*40)+parseFloat(height+60)) + ")"; })
-      //       .on("click", function(d){ sortBars(d) });
-
-      //   legend.append("rect")
-      //       .attr("x", width - 100)
-      //       .attr("width", 100)
-      //       .attr("height", 30)
-      //       .style("fill", color);
-
-      //   legend.append("text")
-      //       .attr("class","legend-text")
-      //       .attr("x", width - 15)
-      //       .attr("y", 14)
-      //       .attr("dy", ".35em")
-      //       .style("text-anchor", "end")
-      //       .text(function(d) { return d; });
-
-      // }
-
 
       var falseAxis = svg.append("line")
          .attr("class","false-axis")
