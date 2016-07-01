@@ -44,7 +44,7 @@ function test(graphicID, dataFile){
         .scale(x)
         .orient("bottom")
         .tickValues(xBreaks)
-        .tickFormat(d3.format("%"));
+        .tickFormat(function(d) { return d + "%"; });
 
 
     var svg = d3.select("#" + graphicID).append("svg")
