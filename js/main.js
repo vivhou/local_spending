@@ -64,7 +64,7 @@ function test(graphicID, dataFile){
     })
 
     d3.csv("data/" + dataFile, function(error, data) {
-      color.domain(d3.keys(data[0]).filter(function(key) { return key !== "age"; }));
+      color.domain(d3.keys(data[0]).filter(function(key) { return key !== "neighborhood"; }));
 
       data.forEach(function(d) {
         var x0 = 0;
@@ -72,7 +72,7 @@ function test(graphicID, dataFile){
         d.total = d.indicators[d.indicators.length - 1].x1;
       });
 
-      y.domain(data.map(function(d) { return d.age; }));
+      y.domain(data.map(function(d) { return d.neighborhood; }));
       x.domain([0, d3.max(data, function(d) { return d.total; })]); 
 
       var legend = d3.select("#" + graphicID)
@@ -109,14 +109,14 @@ function test(graphicID, dataFile){
           .attr("dx","30%")
           .text("Percentage");
 
-        var age = svg.selectAll(".age")
+        var neighborhood = svg.selectAll(".neighborhood")
           .data(data)
         .enter().append("g")
           .attr("class", "g")
-          .attr("transform", function(d) { return "translate(0," + y(d.age) + ")"; });
+          .attr("transform", function(d) { return "translate(0," + y(d.neighborhood) + ")"; });
 
 
-        age.selectAll("rect")
+        neighborhood.selectAll("rect")
           .data(function(d) { return d.indicators })
         .enter().append("rect")
           .attr("class","bar")
@@ -151,11 +151,11 @@ function test(graphicID, dataFile){
 
         if(reverse){ data.reverse()}
 
-        y.domain(data.map(function(d) { return d.age; }));
+        y.domain(data.map(function(d) { return d.neighborhood; }));
         x.domain([0, d3.max(data, function(d) { return d.total; })]);
 
 
-        age.selectAll("rect")
+        neighborhood.selectAll("rect")
           .data(function(d) { return d.indicators })
         .transition()
           .delay(delay)
@@ -185,11 +185,11 @@ function test(graphicID, dataFile){
               d3.select("button.reverse").style("opacity",1)
             }
 
-        age
+        neighborhood
             .transition()
             .duration(750)
             .delay(delay)
-            .attr("transform", function(d) { return "translate(0," + y(d.age) + ")"; });
+            .attr("transform", function(d) { return "translate(0," + y(d.neighborhood) + ")"; });
 
         transition.select(".y.axis")
             .call(yAxis)
@@ -205,4 +205,4 @@ function test(graphicID, dataFile){
   pymChild = new pym.Child({ renderCallback: drawGraphic });
 }
 
-test("healthGraphic","debt.csv")
+test("DC_Graphic","dc_info.csv")
