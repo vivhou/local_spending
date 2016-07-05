@@ -1,19 +1,30 @@
 body {
   font-size: 9.5pt;
   font-family: 'Raleway', sans-serif;
+  fill: #ffffff;
+ 
+}
+
+.svg-background-color {
+  background-color: #979797;
 }
 
 .false-axis{
-  stroke: #000;
+  stroke: #ffffff;
 }
 
 .grid-line{
-  stroke: #b3b3b3;
+  stroke: #ffffff;
 }
+
+.axis--x path {
+  display: none;
+}
+
 .axis path,
 .axis line {
   fill: none;
-  stroke: none;
+  stroke: white;
   shape-rendering: crispEdges;
 }
 
@@ -26,6 +37,7 @@ body {
 
 .y.axis .tick line{
   display: none;
+  color: #ffffff;
 }
 
 .legend-text{
@@ -35,26 +47,57 @@ body {
 #title{
   font-size: 20pt; 
   font-family: 'Raleway', sans-serif;
+  margin: 30px 10px;
+  color: #ffffff;
+
 }
 
 #subtitle{
   font-style: italic;
+  margin-left: 10px;
+  color: #ffffff;
+
+}
+
+a {
+  color: #ffffff;
 }
 
 .legend{
   font-size: 14px;
   padding: 14px;
-  margin: 20px 0  0 6px;
+  margin: 20px 0  0 10px;
   cursor: pointer;
   border: none;
   color: white;
   background-color: #1696d2;
   display: block;
   line-height: 12px;
-  text-transform: uppercase;
+  text-transform: lowercase;
   text-align: center;
   float: left;
   margin-right: 1px;
 }
 
-button:focus {outline:0;}
+.axis--x .tick {
+    stroke: #fff;
+    opacity: 0.7;
+}
+.axis--x path {
+      stroke-width: 0;
+}
+
+div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 60px;                  
+  height: 28px;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: #ffffff;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none; 
+  color: #000;        
+}
+button:focus {outline:2;}
