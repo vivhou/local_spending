@@ -34,7 +34,7 @@ function test(graphicID, dataFile){
 
 
     var color = d3.scale.ordinal()
-        .range(["#C54DA8", "#3abf9d", "#EAEA32", "#e79e19"]);
+        .range(["#C54DA8", "#3abf9d", "#ffdf00", "#ff5349 "]);
 
     var yAxis = d3.svg.axis()
         .scale(y)
@@ -47,7 +47,8 @@ function test(graphicID, dataFile){
         .scale(x)
         .orient("bottom")
         .ticks(5)
-      .tickFormat(function(d) { return d + "%"; });
+        .tickSize(-height, 0, 0)
+        .tickFormat(function(d) { return d + "%"; });
 
 
     var svg = d3.select("#" + graphicID).append("svg")

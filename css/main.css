@@ -79,13 +79,7 @@ a {
   margin-right: 1px;
 }
 
-.axis--x .tick {
-    stroke: #fff;
-    opacity: 0.7;
-}
-.axis--x path {
-      stroke-width: 0;
-}
+
 
 div.tooltip {   
   position: absolute;           
